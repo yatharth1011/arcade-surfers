@@ -42,6 +42,11 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         scene.centerCameraAt(88, mySprite.y - 30)
     }
 })
+scene.onOverlapTile(SpriteKind.Coin, sprites.castle.tilePath5, function (sprite, location) {
+    if (location == tiles.getTileLocation(8, 4) || (location == tiles.getTileLocation(2, 23) || location == tiles.getTileLocation(5, 23) || location == tiles.getTileLocation(8, 23) || location == tiles.getTileLocation(2, 4) || location == tiles.getTileLocation(5, 4))) {
+        sprite.destroy()
+    }
+})
 let coin: Sprite = null
 let placed = 0
 let mySprite: Sprite = null
@@ -68,9 +73,9 @@ game.onUpdate(function () {
         placed = 0
     }
 })
-game.onUpdateInterval(500, function () {
+game.onUpdateInterval(1000, function () {
     coin = sprites.create(assets.image`Coin`, SpriteKind.Coin)
     coin.x = xlist._pickRandom()
-    coin.y = 160
-    coin.setVelocity(0, 0)
+    coin.y = mySprite.y - 100
+    coin.setVelocity(0, 50)
 })
