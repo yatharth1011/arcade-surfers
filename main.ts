@@ -11,6 +11,9 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     } else {
     	
     }
+    for (let value of sprites.allOfKind(SpriteKind.Coin)) {
+        tiles.placeOnTile(value, tiles.getTileLocation(value.tilemapLocation().column, value.tilemapLocation().row - 15))
+    }
     tiles.placeOnTile(sprite, tiles.getTileLocation(mySprite.tilemapLocation().column, 19))
     placed = 1
 })
@@ -61,8 +64,8 @@ tiles.setWallAt(tiles.getTileLocation(8, 4), true)
 let colList = [2, 5, 8]
 placed = 0
 let xlist = [40, 88, 135]
-let list: number[] = []
 for (let index = 0; index <= 9; index++) {
+    let list: number[] = []
     list.push(index)
 }
 game.onUpdate(function () {
@@ -76,6 +79,7 @@ game.onUpdate(function () {
 game.onUpdateInterval(1000, function () {
     coin = sprites.create(assets.image`Coin`, SpriteKind.Coin)
     coin.x = xlist._pickRandom()
-    coin.y = mySprite.y - 100
-    coin.setVelocity(0, 50)
+    coin.y = mySprite.y - 90
+    coin.setVelocity(0, 0)
+    coin.setFlag(SpriteFlag.AutoDestroy, true)
 })
