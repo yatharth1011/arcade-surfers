@@ -25,16 +25,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSpr
     otherSprite.destroy()
     info.changeScoreBy(10)
 })
-controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    game.reset()
-    settings.remove("high-score")
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Obstacle, function (sprite, otherSprite) {
     sprite.destroy()
     if (info.score() > info.highScore()) {
-        music.thump.play()
         music.playMelody("C E G A C5 - - - ", 480)
-        game.setGameOverSound(false, null)
+        game.setGameOverSound(false, music.thump)
 game.over(false, effects.confetti)
     } else {
         game.over(false, effects.dissolve)
