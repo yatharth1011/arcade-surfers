@@ -12,14 +12,14 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     	
     }
     for (let value of sprites.allOfKind(SpriteKind.Coin)) {
-        tiles.placeOnTile(value, tiles.getTileLocation(value.tilemapLocation().column, value.tilemapLocation().row - 15))
+        tiles.placeOnTile(value, tiles.getTileLocation(value.tilemapLocation().column, value.tilemapLocation().row + 14))
     }
     tiles.placeOnTile(sprite, tiles.getTileLocation(mySprite.tilemapLocation().column, 19))
     placed = 1
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     otherSprite.destroy()
-    info.changeScoreBy(100)
+    info.changeScoreBy(10)
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.x == 88) {
@@ -76,7 +76,7 @@ game.onUpdate(function () {
         placed = 0
     }
 })
-game.onUpdateInterval(1000, function () {
+game.onUpdateInterval(750, function () {
     coin = sprites.create(assets.image`Coin`, SpriteKind.Coin)
     coin.x = xlist._pickRandom()
     coin.y = mySprite.y - 90
