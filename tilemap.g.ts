@@ -4,6 +4,8 @@ namespace myTiles {
     export const transparency16 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
     export const tile1 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile2 = image.ofBuffer(hex``);
 
     helpers._registerFactory("tilemap", function(name: string) {
         switch(helpers.stringTrim(name)) {
@@ -72,6 +74,13 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, [myTiles.transparency16], TileScale.Sixteen);
+            case "Obstacle1":
+            case "Obstacle1":return tiles.createTilemap(hex`03000400010705020904020904030806`, img`
+. . . 
+. . . 
+. . . 
+. 2 . 
+`, [myTiles.transparency16,sprites.builtin.forestTiles5,sprites.builtin.forestTiles9,sprites.builtin.forestTiles13,sprites.builtin.forestTiles11,sprites.builtin.forestTiles7,sprites.builtin.forestTiles15,sprites.builtin.forestTiles6,sprites.builtin.forestTiles14,sprites.builtin.forestTiles10], TileScale.Sixteen);
         }
         return null;
     })
@@ -81,6 +90,8 @@ namespace myTiles {
             case "transparency16":return transparency16;
             case "myTile":
             case "tile1":return tile1;
+            case "Obstacle3":
+            case "tile2":return tile2;
         }
         return null;
     })

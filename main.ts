@@ -1,5 +1,6 @@
 namespace SpriteKind {
     export const Coin = SpriteKind.create()
+    export const Obstacle = SpriteKind.create()
 }
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (mySprite.x == 135) {
@@ -14,12 +15,33 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     for (let value of sprites.allOfKind(SpriteKind.Coin)) {
         tiles.placeOnTile(value, tiles.getTileLocation(value.tilemapLocation().column, value.tilemapLocation().row + 14))
     }
+    for (let value2 of sprites.allOfKind(SpriteKind.Obstacle)) {
+        tiles.placeOnTile(value2, tiles.getTileLocation(value2.tilemapLocation().column, value2.tilemapLocation().row + 14))
+    }
     tiles.placeOnTile(sprite, tiles.getTileLocation(mySprite.tilemapLocation().column, 19))
     placed = 1
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     otherSprite.destroy()
     info.changeScoreBy(10)
+})
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    game.reset()
+    settings.remove("high-score")
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Obstacle, function (sprite, otherSprite) {
+    sprite.destroy()
+    if (info.score() > info.highScore()) {
+        music.thump.play()
+        music.playMelody("C E G A C5 - - - ", 480)
+        game.setGameOverSound(false, null)
+game.over(false, effects.confetti)
+    } else {
+        game.over(false, effects.dissolve)
+    }
+})
+sprites.onOverlap(SpriteKind.Coin, SpriteKind.Obstacle, function (sprite, otherSprite) {
+    sprite.destroy()
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.x == 88) {
@@ -45,12 +67,18 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         scene.centerCameraAt(88, mySprite.y - 30)
     }
 })
+scene.onOverlapTile(SpriteKind.Obstacle, sprites.castle.tilePath5, function (sprite, location) {
+    if (location == tiles.getTileLocation(8, 4) || (location == tiles.getTileLocation(2, 23) || location == tiles.getTileLocation(5, 23) || location == tiles.getTileLocation(8, 23) || location == tiles.getTileLocation(2, 4) || location == tiles.getTileLocation(5, 4))) {
+        sprite.destroy()
+    }
+})
 scene.onOverlapTile(SpriteKind.Coin, sprites.castle.tilePath5, function (sprite, location) {
     if (location == tiles.getTileLocation(8, 4) || (location == tiles.getTileLocation(2, 23) || location == tiles.getTileLocation(5, 23) || location == tiles.getTileLocation(8, 23) || location == tiles.getTileLocation(2, 4) || location == tiles.getTileLocation(5, 4))) {
         sprite.destroy()
     }
 })
 let coin: Sprite = null
+let myObstacle: Sprite = null
 let placed = 0
 let mySprite: Sprite = null
 tiles.setCurrentTilemap(tilemap`Forest1`)
@@ -75,6 +103,13 @@ game.onUpdate(function () {
         mySprite.setVelocity(0, -50)
         placed = 0
     }
+})
+game.onUpdateInterval(5000, function () {
+    myObstacle = sprites.create(assets.image`Obstacle4`, SpriteKind.Obstacle)
+    myObstacle.x = xlist._pickRandom()
+    myObstacle.y = mySprite.y - 120
+    myObstacle.setVelocity(0, 0)
+    myObstacle.setFlag(SpriteFlag.AutoDestroy, true)
 })
 game.onUpdateInterval(750, function () {
     coin = sprites.create(assets.image`Coin`, SpriteKind.Coin)

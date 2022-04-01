@@ -10,6 +10,12 @@
         "tilemapTile": true,
         "displayName": "myTile"
     },
+    "tile2": {
+        "data": "hwQQABAAAAC8z////////7zP////////vPz////////M/Pz//////8z8/P//////zPz8//////+8/////////7zP////////vM////////+8z////////8z/////////zPz////////M/Pz//////8z8/P//////zP/////////cz////////w==",
+        "mimeType": "image/x-mkcd-f4",
+        "tilemapTile": true,
+        "displayName": "Obstacle3"
+    },
     "level1": {
         "id": "level1",
         "mimeType": "application/mkcd-tilemap",
@@ -42,6 +48,24 @@
             "myTiles.transparency16"
         ],
         "displayName": "level2"
+    },
+    "Obstacle1": {
+        "id": "Obstacle1",
+        "mimeType": "application/mkcd-tilemap",
+        "data": "MTAwMzAwMDQwMDAxMDcwNTAyMDkwNDAyMDkwNDAzMDgwNjAwMDAwMDAwMDAwMg==",
+        "tileset": [
+            "myTiles.transparency16",
+            "sprites.builtin.forestTiles5",
+            "sprites.builtin.forestTiles9",
+            "sprites.builtin.forestTiles13",
+            "sprites.builtin.forestTiles11",
+            "sprites.builtin.forestTiles7",
+            "sprites.builtin.forestTiles15",
+            "sprites.builtin.forestTiles6",
+            "sprites.builtin.forestTiles14",
+            "sprites.builtin.forestTiles10"
+        ],
+        "displayName": "Obstacle1"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",
