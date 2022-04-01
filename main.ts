@@ -3,6 +3,8 @@ namespace SpriteKind {
     export const Obstacle = SpriteKind.create()
 }
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
+    mvx = sprite.vx
+    mvy = sprite.vy
     if (mySprite.x == 135) {
         sprite.setPosition(135, sprite.y)
     } else if (mySprite.x == 88) {
@@ -39,6 +41,8 @@ sprites.onOverlap(SpriteKind.Coin, SpriteKind.Obstacle, function (sprite, otherS
     sprite.destroy()
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    mvx = mySprite.vx
+    mvy = mySprite.vy
     if (mySprite.x == 88) {
         mySprite.setPosition(40, mySprite.y)
         placed = 1
@@ -51,6 +55,8 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    mvx = mySprite.vx
+    mvy = mySprite.vy
     if (mySprite.x == 88) {
         mySprite.setPosition(135, mySprite.y)
         placed = 1
@@ -74,6 +80,8 @@ scene.onOverlapTile(SpriteKind.Coin, sprites.castle.tilePath5, function (sprite,
 })
 let coin: Sprite = null
 let myObstacle: Sprite = null
+let mvy = 0
+let mvx = 0
 let placed = 0
 let mySprite: Sprite = null
 tiles.setCurrentTilemap(tilemap`Forest1`)
@@ -91,11 +99,13 @@ for (let index = 0; index <= 9; index++) {
     let list: number[] = []
     list.push(index)
 }
+mySprite.ay = -1
 game.onUpdate(function () {
     scene.centerCameraAt(88, mySprite.y - 30)
     if (placed == 1) {
         scene.centerCameraAt(88, mySprite.y - 30)
-        mySprite.setVelocity(0, -50)
+        mySprite.setVelocity(mvx, mvy)
+        mySprite.ay = -1
         placed = 0
     }
 })
