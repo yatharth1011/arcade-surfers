@@ -11,7 +11,6 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     } else {
     	
     }
-    sprites.destroyAllSpritesOfKind(SpriteKind.Coin)
     tiles.placeOnTile(sprite, tiles.getTileLocation(mySprite.tilemapLocation().column, 19))
     placed = 1
 })
@@ -25,7 +24,7 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         placed = 1
         scene.centerCameraAt(88, mySprite.y - 30)
     }
-    if (mySprite.x == 135) {
+    if (mySprite.x > 88) {
         mySprite.setPosition(88, mySprite.y)
         placed = 1
         scene.centerCameraAt(88, mySprite.y - 30)
@@ -37,7 +36,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         placed = 1
         scene.centerCameraAt(88, mySprite.y - 30)
     }
-    if (mySprite.x == 40) {
+    if (mySprite.x < 88) {
         mySprite.setPosition(88, mySprite.y)
         placed = 1
         scene.centerCameraAt(88, mySprite.y - 30)
@@ -54,6 +53,7 @@ mySprite.setVelocity(0, -50)
 tiles.setWallAt(tiles.getTileLocation(2, 4), true)
 tiles.setWallAt(tiles.getTileLocation(5, 4), true)
 tiles.setWallAt(tiles.getTileLocation(8, 4), true)
+let colList = [2, 5, 8]
 placed = 0
 let xlist = [40, 88, 135]
 let list: number[] = []
@@ -68,7 +68,9 @@ game.onUpdate(function () {
         placed = 0
     }
 })
-game.onUpdateInterval(list._pickRandom() * 100, function () {
+game.onUpdateInterval(500, function () {
     coin = sprites.create(assets.image`Coin`, SpriteKind.Coin)
-    coin.setPosition(xlist._pickRandom(), 120)
+    coin.x = xlist._pickRandom()
+    coin.y = 160
+    coin.setVelocity(0, 0)
 })
