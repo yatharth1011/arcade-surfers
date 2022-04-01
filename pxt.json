@@ -6,7 +6,8 @@
         "tilemaps": "github:microsoft/pxt-tilemaps#v1.12.0",
         "controller": "*",
         "darts": "*",
-        "corgio": "*"
+        "corgio": "*",
+        "arcade-character-animations": "github:microsoft/arcade-character-animations#v0.0.2"
     },
     "files": [
         "main.blocks",
